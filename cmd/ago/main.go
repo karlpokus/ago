@@ -18,5 +18,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(ago.Parse(t))
+	log.Println(ago.ParseWithContext(t))
 }
