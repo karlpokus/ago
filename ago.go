@@ -38,3 +38,11 @@ func Parse(t time.Time) string {
 func format(suffix string, v int64) string {
 	return fmt.Sprintf("%d%s", v, suffix)
 }
+
+func ParseWithContext(t time.Time) string {
+	s := Parse(t)
+	if t.Before(time.Now()) {
+		return fmt.Sprintf("%s ago", s)
+	}
+	return fmt.Sprintf("in %s", s)
+}

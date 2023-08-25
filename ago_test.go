@@ -30,3 +30,21 @@ func TestParse(t *testing.T) {
 		})
 	}
 }
+
+func TestParseWithContext(t *testing.T) {
+	tests := []struct {
+		in  time.Time
+		out string
+	}{
+		{time.Now().Add(-10 * time.Second), "10s ago"},
+		{time.Now().Add(10 * time.Second), "in 10s"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.out, func(t *testing.T) {
+			s := ParseWithContext(tt.in)
+			if s != tt.out {
+				t.Fatalf("%s != %s", s, tt.out)
+			}
+		})
+	}
+}
