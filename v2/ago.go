@@ -2,7 +2,6 @@ package ago
 
 import (
 	"fmt"
-	"math"
 	"time"
 )
 
@@ -21,12 +20,7 @@ func Parse(a, b time.Time) string {
 	if a.IsZero() || b.IsZero() {
 		return ""
 	}
-	var v int64
-	if a.Before(b) {
-		v = diff(b, a)
-	} else {
-		v = diff(a, b)
-	}
+	v := diff(a, b)
 	var s string
 	switch {
 	case v < MINUTE:
@@ -44,7 +38,10 @@ func Parse(a, b time.Time) string {
 }
 
 func diff(a, b time.Time) int64 {
-	return int64(math.Abs(float64(a.Unix() - b.Unix())))
+	if a.Before(b) {
+		return b.Unix() - a.Unix()
+	}
+	return a.Unix() - b.Unix()
 }
 
 func format(suffix string, v int64) string {
