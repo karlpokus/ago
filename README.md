@@ -9,8 +9,9 @@ $ go install ./cmd/ago
 # pass time in RFC3339
 $ ago $(date -d "-5 min" -Is)
 5m ago
-$ ago $(date -d "+5 hours" -Is)
-in 5h
+# or by stdin
+$ date -Is -d "+5 min" | ago -
+in 5m
 ````
 
 # test
