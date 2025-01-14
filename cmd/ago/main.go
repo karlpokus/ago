@@ -9,14 +9,14 @@ import (
 )
 
 func main() {
-	log.SetFlags(0)
-	log.SetOutput(os.Stdout)
+	stdout := log.New(os.Stdout, "", 0)
+	stderr := log.New(os.Stderr, "", 0)
 	if len(os.Args) < 2 {
-		log.Fatal("missing time argument")
+		stderr.Fatal("error: missing ISO-formatted time argument")
 	}
 	t, err := time.Parse(time.RFC3339, os.Args[1])
 	if err != nil {
-		log.Fatal(err)
+		stderr.Fatal(err)
 	}
-	log.Println(ago.ParseWithContext(t))
+	stdout.Println(ago.ParseWithContext(t))
 }
